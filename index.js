@@ -205,9 +205,14 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	set_device_event_cb(callback) {
-		callback.reinterpret();
+		this.ffi_callback = ffi.Callback(ref.types.void, [
+			WootingAnalog_DeviceEventType,
+			WootingAnalog_DeviceInfo_Ptr,
+		], (eventType, deviceInfo) => {
+			callback(eventType, deviceInfo.deref());
+		});
 
-		return wooting_analog_wrapper.wooting_analog_set_device_event_cb(callback);
+		return wooting_analog_wrapper.wooting_analog_set_device_event_cb(this.ffi_callback);
 	}
 
 	/**
