@@ -1,27 +1,22 @@
 const {
 	wooting_analog,
-	WootingAnalogResult,
-	WootingAnalog_DeviceEventType,
-	WootingAnalog_KeycodeType,
-	wooting_types,
 } = require('../index.js');
-const ref = require('ref');
-const ffi = require('ffi');
 
+// Initilizing the SDK and Wrapper
 wooting_analog.initialise();
 console.log(`Wooting Analog SDK initlized?: ${wooting_analog.is_initialised()}`);
 
-const callback = ffi.Callback(ref.types.void, [
-	wooting_types.WootingAnalog_DeviceEventType,
-	wooting_types.WootingAnalog_DeviceInfo_Ptr,
-], (eventType, deviceInfo) => {
-	const device_info = deviceInfo.deref();
+// Creating a callback function with 2 arguments
+const callback = (eventType, deviceInfo) => {
+	console.log(eventType);
 	
 	console.log("Beginning of device info");
-	console.log(device_info.vendor_id);
+	console.log(deviceInfo.vendor_id);
 	console.log("End of device info");
-});
+};
 
+// Handing the callback to the SDK
 wooting_analog.set_device_event_cb(callback);
 
+// Keeping the script open till we close it via Ctrl+C
 process.stdin.resume();
