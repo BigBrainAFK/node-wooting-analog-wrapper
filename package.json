@@ -1,0 +1,14 @@
+{
+  "name": "wooting-analog-sdk",
+  "version": "0.0.1",
+  "description": "A Wrapper for the Wooting Analog SDK in NodeJS",
+  "main": "index.js",
+  "repository": "https://github.com/BigBrainAFK/wooting-analog-sdk",
+  "author": "BigBrainAFK",
+  "license": "GPL-3.0-only",
+  "private": false,
+  "dependencies": {
+    "ffi": "lxe/node-ffi#node-12",
+    "ref-struct": "BigBrainAFK/ref-struct"
+  }
+}
