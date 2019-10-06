@@ -27,12 +27,9 @@ console.log(device_info.toJSON());
 console.log("End of device info");
 
 // Setup the buffers and variables we need and get the length
-const keyCode = VirtualKey.Q;
+const keyCode = 0x14;
 const analog_Buf = ref.alloc(types.float);
 const length = analog_Buf.length;
-
-// Set Keycode Type to current layout
-wooting_analog.set_keycode_mode(KeycodeType.VirtualKeyTranslate);
 
 while(true) {
 	// Read the full buffer value for the 'Q' key as long as the program runs

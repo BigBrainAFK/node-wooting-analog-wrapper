@@ -22,22 +22,16 @@ const callback = (eventType, deviceInfo) => {
 	console.log("End of device info");
 
 	if (eventType === DeviceEventType.Connected) {
-		// We have to setImmediate here so the SDK doesnt block inside callback
-		setImmediate(() => {
-			// Setup the buffers and variables we need and get the length
-			const keyCode = VirtualKey.Q;
-			const analog_Buf = ref.alloc(types.float);
-			const length = analog_Buf.length;
+		// Setup the buffers and variables we need and get the length
+		const keyCode = VirtualKey.Q;
+		const analog_Buf = ref.alloc(types.float);
+		const length = analog_Buf.length;
 
-			// Set Keycode Type to current layout
-			wooting_analog.set_keycode_mode(KeycodeType.VirtualKeyTranslate);
-
-			// Read the full buffer value for the 'Q' key as long as the program runs
-			wooting_analog.read_full_buffer_device(keyCode, analog_Buf, length, deviceInfo.device_id);
+		// Read the full buffer value for the 'Q' key as long as the program runs
+		wooting_analog.read_full_buffer_device(0x14, analog_Buf, length, deviceInfo.device_id);
 				
-			// Read the analog value for the 'Q' key as long as the program runs
-			console.log(analog_Buf.deref());
-		});
+		// Read the analog value for the 'Q' key as long as the program runs
+		console.log(analog_Buf.deref());
 	}
 };
 
