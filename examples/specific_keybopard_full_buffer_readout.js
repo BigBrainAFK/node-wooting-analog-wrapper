@@ -5,6 +5,7 @@ const {
 	KeycodeType,
 	DeviceEventType,
 	types,
+	VirtualKey,
 } = require('../index.js');
 const ref = require('ref');
 
@@ -26,7 +27,7 @@ const callback = (eventType, deviceInfo) => {
 		// We have to setImmediate here so the SDK doesnt block inside callback
 		setImmediate(() => {
 			// Setup the buffers and variables we need and get the length
-			const keyCode = 0x51;
+			const keyCode = VirtualKey.Q;
 			const analog_Buf = ref.alloc(types.float);
 			const length = analog_Buf.length;
 

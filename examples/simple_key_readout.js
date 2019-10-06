@@ -4,6 +4,7 @@ const {
 	wooting_analog,
 	KeycodeType,
 	types,
+	VirtualKey,
 } = require('../index.js');
 const ref = require('ref');
 
@@ -31,5 +32,5 @@ wooting_analog.set_keycode_mode(KeycodeType.VirtualKeyTranslate);
 
 while(true) {
 	// Read the analog value for the 'Q' key as long as the program runs
-	console.log(wooting_analog.read_analog(0x51));
+	console.log(wooting_analog.read_analog(VirtualKey.Q));
 }

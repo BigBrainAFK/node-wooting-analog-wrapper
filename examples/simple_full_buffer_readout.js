@@ -4,6 +4,7 @@ const {
 	wooting_analog,
 	KeycodeType,
 	types,
+	VirtualKey,
 } = require('../index.js');
 const ref = require('ref');
 
@@ -28,7 +29,7 @@ console.log(device_info.toJSON());
 console.log("End of device info");
 
 // Setup the buffers and variables we need and get the length
-const keyCode = 0x51;
+const keyCode = VirtualKey.Q;
 const analog_Buf = ref.alloc(types.float);
 const length = analog_Buf.length;
 

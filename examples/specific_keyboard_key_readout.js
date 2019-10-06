@@ -4,6 +4,7 @@ const {
 	wooting_analog,
 	KeycodeType,
 	DeviceEventType,
+	VirtualKey,
 } = require('../index.js');
 
 // Initilizing the SDK and Wrapper
@@ -25,7 +26,7 @@ const callback = (eventType, deviceInfo) => {
 			wooting_analog.set_keycode_mode(KeycodeType.VirtualKeyTranslate);
 
 			// Read the analog value for the 'Q' key as long as the program runs
-			console.log(wooting_analog.read_analog_device(0x51, deviceInfo.device_id));
+			console.log(wooting_analog.read_analog_device(VirtualKey.Q, deviceInfo.device_id));
 		});
 	}
 };
