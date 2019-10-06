@@ -250,8 +250,8 @@ const VirtualKey_Enum = {
 
 module.exports = {
 	getError,
-	WootingAnalogResult: WootingAnalogResult_Enum,
-	DeviceEventType: DeviceEventType_Enum,
-	KeycodeType: KeycodeType_Enum,
-	VirtualKey: VirtualKey_Enum,
+	WootingAnalogResult_Enum,
+	DeviceEventType_Enum,
+	KeycodeType_Enum,
+	VirtualKey_Enum,
 }

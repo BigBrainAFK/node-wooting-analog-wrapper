@@ -7,7 +7,7 @@ const {
 	DeviceEventType_Enum,
 	KeycodeType_Enum,
 	VirtualKey_Enum,
-} = require(__dirname + '/util/index.js');
+} = require(__dirname + '/util');
 
 const platform = (require('os')).platform();
 if (platform === 'win32'){
