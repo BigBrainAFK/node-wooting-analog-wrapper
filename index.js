@@ -237,7 +237,7 @@ class wooting_analog {
 	}
 }
 
-const WootingAnalogResult = {
+const WootingAnalogResult_Enum = {
 	Ok: 1,
 	/// Item hasn't been initialized
 	UnInitialized: -2000,
@@ -259,14 +259,14 @@ const WootingAnalogResult = {
 	NotAvailable: -1992,
 }
 
-const DeviceEventType = {
+const DeviceEventType_Enum = {
 	/// Device has been connected
 	Connected: 1,
 	/// Device has been disconnected
 	Disconnected: 2,
 };
 
-const KeycodeType = {
+const KeycodeType_Enum = {
 	/// USB HID Keycodes https://www.usb.org/document-library/hid-usage-tables-112 pg53
 	HID: 0,
 	/// Scan code set 1
@@ -277,7 +277,7 @@ const KeycodeType = {
 	VirtualKeyTranslate: 3,
 };
 
-const VirtualKey = {
+const VirtualKey_Enum = {
 	LeftButton: 0x01,
 	RightButton: 0x02,
 	Cancel: 0x03,
@@ -478,9 +478,9 @@ const VirtualKey = {
 
 module.exports = {
 	wooting_analog: new wooting_analog(),
-	WootingAnalogResult,
-	DeviceEventType,
-	KeycodeType,
+	WootingAnalogResult: WootingAnalogResult_Enum,
+	DeviceEventType: DeviceEventType_Enum,
+	KeycodeType: KeycodeType_Enum,
 	types: {
 		WootingAnalogResult,
 		WootingAnalog_DeviceID,
@@ -494,5 +494,5 @@ module.exports = {
 		float,
 		float_Ptr,
 	},
-	VirtualKey,
+	VirtualKey: VirtualKey_Enum,
 }
