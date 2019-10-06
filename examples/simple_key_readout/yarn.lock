@@ -65,7 +65,7 @@ ref@lxe/ref#node-12:
 
 wooting-analog-sdk@BigBrainAFK/node-wooting-analog-wrapper:
   version "0.0.1"
-  resolved "https://codeload.github.com/BigBrainAFK/node-wooting-analog-wrapper/tar.gz/517fc4478c5777c76fe7c2cb72ae1a47b085cb85"
+  resolved "https://codeload.github.com/BigBrainAFK/node-wooting-analog-wrapper/tar.gz/0d7eb30d13aabde78ec5249dce3fa705d166b862"
   dependencies:
     ffi lxe/node-ffi#node-12
     ref-struct BigBrainAFK/ref-struct

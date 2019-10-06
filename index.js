@@ -110,7 +110,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	clear_device_event_cb() {
-		return wooting_analog_wrapper.wooting_analog_clear_device_event_cb();
+		const result = wooting_analog_wrapper.wooting_analog_clear_device_event_cb();
+
+		if (result !== WootingAnalogResult_Enum.Ok) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -122,7 +126,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	get_connected_devices_info(device_info, length) {
-		return wooting_analog_wrapper.wooting_analog_get_connected_devices_info(device_info, length);
+		const result = wooting_analog_wrapper.wooting_analog_get_connected_devices_info(device_info, length);
+
+		if (result < 0) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -132,7 +140,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	initialise() {
-		return wooting_analog_wrapper.wooting_analog_initialise();
+		const result = wooting_analog_wrapper.wooting_analog_initialise();
+
+		if (result !== WootingAnalogResult_Enum.Ok) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -153,7 +165,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	read_analog(keyCode) {
-		return wooting_analog_wrapper.wooting_analog_read_analog(keyCode);
+		const result = wooting_analog_wrapper.wooting_analog_read_analog(keyCode);
+
+		if (result < 0 || result > 1) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -165,7 +181,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	read_analog_device(keyCode, device_id) {
-		return wooting_analog_wrapper.wooting_analog_read_analog_device(keyCode, device_id);
+		const result = wooting_analog_wrapper.wooting_analog_read_analog_device(keyCode, device_id);
+
+		if (result < 0 || result > 1) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -178,7 +198,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	read_full_buffer(code_buffer, analog_buffer, length) {
-		return wooting_analog_wrapper.wooting_analog_read_full_buffer(code_buffer, analog_buffer, length);
+		const result = wooting_analog_wrapper.wooting_analog_read_full_buffer(code_buffer, analog_buffer, length);
+
+		if (result < 0 || result > 1) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -192,7 +216,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	read_full_buffer_device(code_buffer, analog_buffer, length, device_id) {
-		return wooting_analog_wrapper.wooting_analog_read_full_buffer_device(code_buffer, analog_buffer, length, device_id);
+		const result = wooting_analog_wrapper.wooting_analog_read_full_buffer_device(code_buffer, analog_buffer, length, device_id);
+
+		if (result < 0 || result > 1) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -212,7 +240,11 @@ class wooting_analog {
 
 		this.ffi_callback.reinterpret();
 
-		return wooting_analog_wrapper.wooting_analog_set_device_event_cb(this.ffi_callback);
+		const result = wooting_analog_wrapper.wooting_analog_set_device_event_cb(this.ffi_callback);
+
+		if (result !== WootingAnalogResult_Enum.Ok) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -223,7 +255,11 @@ class wooting_analog {
 	 * @memberof wooting_analog
 	 */
 	set_keycode_mode(mode) {
-		return wooting_analog_wrapper.wooting_analog_set_keycode_mode(mode);
+		const result = wooting_analog_wrapper.wooting_analog_set_keycode_mode(mode);
+
+		if (result !== WootingAnalogResult_Enum.Ok) throw Error(getError(WootingAnalogResult_Enum, result));
+
+		return result;
 	}
 
 	/**
@@ -235,6 +271,17 @@ class wooting_analog {
 	uninitialise() {
 		return wooting_analog_wrapper.wooting_analog_uninitialise();
 	}
+}
+
+/**
+ * Get the Enum Error name for a given value
+ *
+ * @param { Object } objectEnum The enum to search through
+ * @param { * } value Value to resolve
+ * @returns { String }
+ */
+function getError(objectEnum, value) {
+	return Object.keys(objectEnum).find(key => objectEnum[key] === value) || 'Not implemented Error code';
 }
 
 const WootingAnalogResult_Enum = {
