@@ -2,8 +2,6 @@ const ffi = require('ffi');
 const ref = require('ref');
 const StructType = require('ref-struct');
 
-process.chdir('..'); //changing cwd for tests
-
 const platform = (require('os')).platform();
 if (platform === 'win32'){
     woot_loc = './wrapper/wooting_analog_wrapper.dll';
@@ -23,11 +21,11 @@ const float_Ptr = ref.refType(float);
 const WootingAnalogResult = ref.types.int;
 const WootingAnalog_DeviceID = ref.types.uint64;
 const WootingAnalog_DeviceInfo = StructType({
-    vendor_id : ref.types.uint16,
-    product_id : ref.types.uint16,
-    manufacturer_name : ref.types.char,
-    device_name : ref.types.char,
-    device_id : WootingAnalog_DeviceID,
+    vendor_id: ref.types.uint16,
+    product_id: ref.types.uint16,
+    manufacturer_name: ref.types.CString,
+    device_name: ref.types.CString,
+    device_id: WootingAnalog_DeviceID,
 });
 const WootingAnalog_DeviceInfo_Ptr = ref.refType(WootingAnalog_DeviceInfo);
 const WootingAnalog_DeviceEventType = ref.types.int;
@@ -72,16 +70,16 @@ const wooting_analog_wrapper = ffi.Library(woot_loc, {
 	'wooting_analog_read_full_buffer': [
 		ref.types.int,
 		[
-			ushort_Ptr,
-			float_Ptr,
+			ushort,
+			float,
 			ref.types.uint,
 		]
 	],
 	'wooting_analog_read_full_buffer_device': [
 		ref.types.int,
 		[
-			ushort_Ptr,
-			float_Ptr,
+			ushort,
+			float,
 			ref.types.uint,
 			WootingAnalog_DeviceID,
 		]
@@ -212,6 +210,8 @@ class wooting_analog {
 			callback(eventType, deviceInfo.deref());
 		});
 
+		this.ffi_callback.reinterpret();
+
 		return wooting_analog_wrapper.wooting_analog_set_device_event_cb(this.ffi_callback);
 	}
 
@@ -260,13 +260,13 @@ module.exports = {
 		/// Indicates that it isn't available on this platform
 		NotAvailable: -1992,
 	},
-	WootingAnalog_DeviceEventType: {
+	DeviceEventType: {
 		/// Device has been connected
 		Connected: 1,
 		/// Device has been disconnected
 		Disconnected: 2,
 	},
-	WootingAnalog_KeycodeType: {
+	KeycodeType: {
 		/// USB HID Keycodes https://www.usb.org/document-library/hid-usage-tables-112 pg53
 		HID: 0,
 		/// Scan code set 1
@@ -276,7 +276,7 @@ module.exports = {
 		/// Windows Virtual Keys which are translated to the current keyboard locale
 		VirtualKeyTranslate: 3,
 	},
-	wooting_types: {
+	types: {
 		WootingAnalogResult,
 		WootingAnalog_DeviceID,
 		WootingAnalog_DeviceInfo,
@@ -284,8 +284,6 @@ module.exports = {
 		WootingAnalog_DeviceEventType,
 		WootingAnalogCallback,
 		WootingAnalog_KeycodeType,
-	},
-	standard_types: {
 		ushort,
 		ushort_Ptr,
 		float,

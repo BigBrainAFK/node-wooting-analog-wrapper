@@ -1,3 +1,5 @@
+process.chdir('..');
+
 const {
 	wooting_analog,
 } = require('../index.js');
@@ -8,10 +10,10 @@ console.log(`Wooting Analog SDK initlized?: ${wooting_analog.is_initialised()}`)
 
 // Creating a callback function with 2 arguments
 const callback = (eventType, deviceInfo) => {
-	console.log(eventType);
+	console.log(eventType === 1 ? 'Connected' : 'Disconnected');
 	
 	console.log("Beginning of device info");
-	console.log(deviceInfo.vendor_id);
+	console.log(deviceInfo.toJSON());
 	console.log("End of device info");
 };
 

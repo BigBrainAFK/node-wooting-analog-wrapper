@@ -1,17 +1,20 @@
+process.chdir('..');
+
 const {
 	wooting_analog,
-	WootingAnalog_KeycodeType,
-	wooting_types,
+	KeycodeType,
+	types,
 } = require('../index.js');
 const ref = require('ref');
 
+process.cwd('.');
 
 // Initilizing the SDK and Wrapper
 wooting_analog.initialise();
 console.log(`Wooting Analog SDK initlized?: ${wooting_analog.is_initialised()}`);
 
 // Creating a new buffer with a pointer to a pointer to the Wooting DeviceInfo Struct
-const device_info_result = ref.alloc(wooting_types.WootingAnalog_DeviceInfo_Ptr);
+const device_info_result = ref.alloc(types.WootingAnalog_DeviceInfo_Ptr);
 
 // Fetch and output the amount of connected devices
 console.log(`Wooting keyboards connected right now: ${wooting_analog.get_connected_devices_info(device_info_result, device_info_result.length)}`);
@@ -21,13 +24,21 @@ const device_info = device_info_result.deref().deref();
 
 // Output the Device Info
 console.log("Beginning of device info");
-console.log(device_info.vendor_id);
+console.log(device_info.toJSON());
 console.log("End of device info");
 
+// Setup the buffers and variables we need and get the length
+const keyCode = 0x51;
+const analog_Buf = ref.alloc(types.float);
+const length = analog_Buf.length;
+
 // Set Keycode Type to current layout
-wooting_analog.set_keycode_mode(WootingAnalog_KeycodeType.VirtualKeyTranslate);
+wooting_analog.set_keycode_mode(KeycodeType.VirtualKeyTranslate);
 
 while(true) {
+	// Read the full buffer value for the 'Q' key as long as the program runs
+	wooting_analog.read_full_buffer(keyCode, analog_Buf, length);
+	
 	// Read the analog value for the 'Q' key as long as the program runs
-	console.log(wooting_analog.read_analog(0x51));
+	console.log(analog_Buf.deref());
 }
