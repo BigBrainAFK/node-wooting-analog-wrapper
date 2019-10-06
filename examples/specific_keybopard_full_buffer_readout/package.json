@@ -1,0 +1,11 @@
+{
+  "name": "specific_keybaord_full_buffer_readout",
+  "version": "1.0.0",
+  "description": "Example of a full buffer readout on a specific keyboard with the wooting-analog-wrapper",
+  "main": "index.js",
+  "author": "BigBrainAFK",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "wooting-analog-sdk": "BigBrainAFK/node-wooting-analog-wrapper"
+  }
+}

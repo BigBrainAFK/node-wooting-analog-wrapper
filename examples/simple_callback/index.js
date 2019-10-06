@@ -1,8 +1,6 @@
-process.chdir('..');
-
 const {
 	wooting_analog,
-} = require('../index.js');
+} = require('wooting-analog-sdk');
 
 // Initilizing the SDK and Wrapper
 wooting_analog.initialise();

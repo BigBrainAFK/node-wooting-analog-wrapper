@@ -1,11 +1,9 @@
-process.chdir('..');
-
 const {
 	wooting_analog,
 	KeycodeType,
 	types,
 	VirtualKey,
-} = require('../index.js');
+} = require('wooting-analog-sdk');
 const ref = require('ref');
 
 

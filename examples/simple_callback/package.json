@@ -1,0 +1,11 @@
+{
+  "name": "simple_callback",
+  "version": "1.0.0",
+  "description": "Example of a simple callback with the wooting-analog-wrapper",
+  "main": "index.js",
+  "author": "BigBrainAFK",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "wooting-analog-sdk": "BigBrainAFK/node-wooting-analog-wrapper"
+  }
+}

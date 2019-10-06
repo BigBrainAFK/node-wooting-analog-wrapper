@@ -1,15 +1,9 @@
-process.chdir('..');
-
 const {
 	wooting_analog,
 	KeycodeType,
 	DeviceEventType,
-	types,
 	VirtualKey,
-} = require('../index.js');
-const ref = require('ref');
-
-process.cwd('..');
+} = require('wooting-analog-sdk');
 
 // Initilizing the SDK and Wrapper
 wooting_analog.initialise();
@@ -26,19 +20,11 @@ const callback = (eventType, deviceInfo) => {
 	if (eventType === DeviceEventType.Connected) {
 		// We have to setImmediate here so the SDK doesnt block inside callback
 		setImmediate(() => {
-			// Setup the buffers and variables we need and get the length
-			const keyCode = VirtualKey.Q;
-			const analog_Buf = ref.alloc(types.float);
-			const length = analog_Buf.length;
-
 			// Set Keycode Type to current layout
 			wooting_analog.set_keycode_mode(KeycodeType.VirtualKeyTranslate);
 
-			// Read the full buffer value for the 'Q' key as long as the program runs
-			wooting_analog.read_full_buffer_device(keyCode, analog_Buf, length, deviceInfo.device_id);
-				
 			// Read the analog value for the 'Q' key as long as the program runs
-			console.log(analog_Buf.deref());
+			console.log(wooting_analog.read_analog_device(VirtualKey.Q, deviceInfo.device_id));
 		});
 	}
 };
