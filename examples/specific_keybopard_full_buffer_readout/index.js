@@ -23,15 +23,17 @@ const callback = (eventType, deviceInfo) => {
 
 	if (eventType === DeviceEventType.Connected) {
 		// Setup the buffers and variables we need and get the length
-		const keyCode = VirtualKey.Q;
-		const analog_Buf = ref.alloc(types.float);
-		const length = analog_Buf.length;
+		const keyCode = Buffer.alloc(10000000);
+		keyCode.type = types.ushort_Ptr;
+		const analog_Buf = Buffer.alloc(10000000);
+		analog_Buf.type = types.float_Ptr;
+		const length = keyCode.length > analog_Buf.length ? analog_Buf.length : keyCode.length;
 
-		// Read the full buffer value for the 'Q' key as long as the program runs
-		wooting_analog.read_full_buffer_device(0x14, analog_Buf, length, deviceInfo.device_id);
-				
-		// Read the analog value for the 'Q' key as long as the program runs
-		console.log(analog_Buf.deref());
+		// Fill buffer while program runs
+		wooting_analog.read_full_buffer(keyCode, analog_Buf, length);
+			
+		// Print the values of keyCode and Analog
+		console.log(`keyCode value: ${keyCode.readUInt16LE()}\nAnalog value: ${analog_Buf.readFloatLE()}`);
 	}
 };
 

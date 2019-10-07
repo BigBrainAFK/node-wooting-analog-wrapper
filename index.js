@@ -77,16 +77,16 @@ const wooting_analog_wrapper = ffi.Library(__dirname + woot_loc, {
 	'wooting_analog_read_full_buffer': [
 		ref.types.int,
 		[
-			ushort,
-			float,
+			ushort_Ptr,
+			float_Ptr,
 			ref.types.uint,
 		]
 	],
 	'wooting_analog_read_full_buffer_device': [
 		ref.types.int,
 		[
-			ushort,
-			float,
+			ushort_Ptr,
+			float_Ptr,
 			ref.types.uint,
 			WootingAnalog_DeviceID,
 		]

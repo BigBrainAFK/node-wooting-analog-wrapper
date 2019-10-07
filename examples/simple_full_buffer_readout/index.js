@@ -1,8 +1,6 @@
 const {
 	wooting_analog,
-	KeycodeType,
 	types,
-	VirtualKey,
 } = require('wooting-analog-sdk');
 const ref = require('ref');
 
@@ -27,14 +25,16 @@ console.log(device_info.toJSON());
 console.log("End of device info");
 
 // Setup the buffers and variables we need and get the length
-const keyCode = 0x14;
-const analog_Buf = ref.alloc(types.float);
-const length = analog_Buf.length;
+const keyCode = Buffer.alloc(10000000);
+keyCode.type = types.ushort_Ptr;
+const analog_Buf = Buffer.alloc(10000000);
+analog_Buf.type = types.float_Ptr;
+const length = keyCode.length > analog_Buf.length ? analog_Buf.length : keyCode.length;
 
 while(true) {
-	// Read the full buffer value for the 'Q' key as long as the program runs
+	// Fill buffer while program runs
 	wooting_analog.read_full_buffer(keyCode, analog_Buf, length);
 	
-	// Read the analog value for the 'Q' key as long as the program runs
-	console.log(analog_Buf.deref());
+	// Print the values of keyCode and Analog
+	console.log(`keyCode value: ${keyCode.readUInt16LE()}\nAnalog value: ${analog_Buf.readFloatLE()}`);
 }
