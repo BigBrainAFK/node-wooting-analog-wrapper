@@ -110,12 +110,12 @@ const wooting_analog_wrapper = ffi.Library(__dirname + woot_loc, {
 	],
 });
 
-class wooting_analog {
+class WootingWrapper {
 	/**
 	 * Clears the device callback function
 	 *
-	 * @returns { WootingAnalogResult } The result of the function
-	 * @memberof wooting_analog
+	 * @returns { number } The result of the function
+	 * @memberof WootingWrapper
 	 */
 	clear_device_event_cb() {
 		const result = wooting_analog_wrapper.wooting_analog_clear_device_event_cb();
@@ -128,10 +128,10 @@ class wooting_analog {
 	/**
 	 * Fetches the connected devices infos
 	 *
-	 * @param { WootingAnalog_DeviceInfo** } device_info Device info buffer
+	 * @param { Buffer } device_info Device info buffer
 	 * @param { number } length Length of the buffer to fill
 	 * @returns { number } If bigger than 0 the number of devices that are connected
-	 * @memberof wooting_analog
+	 * @memberof WootingWrapper
 	 */
 	get_connected_devices_info(device_info, length) {
 		const result = wooting_analog_wrapper.wooting_analog_get_connected_devices_info(device_info, length);
@@ -144,8 +144,8 @@ class wooting_analog {
 	/**
 	 * Initilizes the Wooting Analog Wrapper
 	 *
-	 * @returns { WootingAnalogResult } The result of the function
-	 * @memberof wooting_analog
+	 * @returns { number } The result of the function
+	 * @memberof WootingWrapper
 	 */
 	initialise() {
 		const result = wooting_analog_wrapper.wooting_analog_initialise();
@@ -159,7 +159,7 @@ class wooting_analog {
 	 * Checks if the Wooting Analog Wrapper is initilized
 	 *
 	 * @returns { boolean } True if initilized, false otherwise
-	 * @memberof wooting_analog
+	 * @memberof WootingWrapper
 	 */
 	is_initialised() {
 		return wooting_analog_wrapper.wooting_analog_is_initialised();
@@ -170,7 +170,7 @@ class wooting_analog {
 	 *
 	 * @param { number } keyCode keyCode of the key you want to read
 	 * @returns { number } Analog value of the specified key
-	 * @memberof wooting_analog
+	 * @memberof WootingWrapper
 	 */
 	read_analog(keyCode) {
 		const result = wooting_analog_wrapper.wooting_analog_read_analog(keyCode);
@@ -184,9 +184,9 @@ class wooting_analog {
 	 * Reads the analog value of a specified key from the specified device
 	 *
 	 * @param { number } keyCode The keyCode you want to fetch
-	 * @param { WootingAnalog_DeviceID } device_id The device id that will be fetched from
+	 * @param { number } device_id The device id that will be fetched from
 	 * @returns { number } Analog value of the specified key
-	 * @memberof wooting_analog
+	 * @memberof WootingWrapper
 	 */
 	read_analog_device(keyCode, device_id) {
 		const result = wooting_analog_wrapper.wooting_analog_read_analog_device(keyCode, device_id);
@@ -199,11 +199,11 @@ class wooting_analog {
 	/**
 	 * Read the full analog buffer of a specified key
 	 *
-	 * @param { ushort* } code_buffer The keyCode buffer
-	 * @param { float* } analog_buffer The analog buffer
+	 * @param { Buffer } code_buffer The keyCode buffer
+	 * @param { Buffer } analog_buffer The analog buffer
 	 * @param { number } length The length of the code and analog buffer
 	 * @returns { number }
-	 * @memberof wooting_analog
+	 * @memberof WootingWrapper
 	 */
 	read_full_buffer(code_buffer, analog_buffer, length) {
 		const result = wooting_analog_wrapper.wooting_analog_read_full_buffer(code_buffer, analog_buffer, length);
@@ -216,12 +216,12 @@ class wooting_analog {
 	/**
 	 * Read the full analog buffer of a specified key from a specified device
 	 *
-	 * @param { ushort* } code_buffer The keyCode buffer
-	 * @param { float* } analog_buffer The analog buffer
+	 * @param { Buffer } code_buffer The keyCode buffer
+	 * @param { Buffer } analog_buffer The analog buffer
 	 * @param { number } length The length of the code and analog buffer
-	 * @param { WootingAnalog_DeviceID } device_id The device id that will be fetched from
+	 * @param { number } device_id The device id that will be fetched from
 	 * @returns { number }
-	 * @memberof wooting_analog
+	 * @memberof WootingWrapper
 	 */
 	read_full_buffer_device(code_buffer, analog_buffer, length, device_id) {
 		const result = wooting_analog_wrapper.wooting_analog_read_full_buffer_device(code_buffer, analog_buffer, length, device_id);
@@ -234,9 +234,9 @@ class wooting_analog {
 	/**
 	 * Set the analog device callback function
 	 *
-	 * @param { Function* } callback The callback function to call on device events
-	 * @returns { WootingAnalogResult }
-	 * @memberof wooting_analog
+	 * @param { Object } callback The callback function to call on device events
+	 * @returns { number }
+	 * @memberof WootingWrapper
 	 */
 	set_device_event_cb(callback) {
 		this.ffi_callback = ffi.Callback(ref.types.void, [
@@ -256,9 +256,9 @@ class wooting_analog {
 	/**
 	 * Set the key mode of the device
 	 *
-	 * @param { WootingAnalog_KeycodeType } mode The mode you want to set the device to
-	 * @returns { WootingAnalogResult }
-	 * @memberof wooting_analog
+	 * @param { number } mode The mode you want to set the device to
+	 * @returns { number }
+	 * @memberof WootingWrapper
 	 */
 	set_keycode_mode(mode) {
 		const result = wooting_analog_wrapper.wooting_analog_set_keycode_mode(mode);
@@ -271,8 +271,8 @@ class wooting_analog {
 	/**
 	 * Uninitilize the Wooting Analog Wrapper
 	 *
-	 * @returns { WootingAnalogResult }
-	 * @memberof wooting_analog
+	 * @returns { number }
+	 * @memberof WootingWrapper
 	 */
 	uninitialise() {
 		return wooting_analog_wrapper.wooting_analog_uninitialise();
@@ -280,7 +280,7 @@ class wooting_analog {
 }
 
 module.exports = {
-	wooting_analog: new wooting_analog(),
+	WootingWrapper,
 	WootingAnalogResult: WootingAnalogResult_Enum,
 	DeviceEventType: DeviceEventType_Enum,
 	KeycodeType: KeycodeType_Enum,
