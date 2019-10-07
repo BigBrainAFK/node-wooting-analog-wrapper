@@ -7,6 +7,7 @@ const {
 	DeviceEventType_Enum,
 	KeycodeType_Enum,
 	VirtualKey_Enum,
+	ScanCodes_Enum,
 } = require(__dirname + '/util');
 
 const platform = (require('os')).platform();
@@ -297,4 +298,5 @@ module.exports = {
 		float_Ptr,
 	},
 	VirtualKey: VirtualKey_Enum,
+	ScanCodes_Enum,
 }
