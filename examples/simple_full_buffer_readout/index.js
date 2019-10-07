@@ -36,5 +36,5 @@ while(true) {
 	wooting_analog.read_full_buffer(keyCode, analog_Buf, length);
 	
 	// Print the values of keyCode and Analog
-	console.log(`keyCode value: ${keyCode.readUInt16LE()}\nAnalog value: ${analog_Buf.readFloatLE()}`);
+	console.log(`keyCode value: 0x${keyCode.readUInt16LE().toString(16)}\nAnalog value: ${analog_Buf.readFloatLE()}`);
 }
