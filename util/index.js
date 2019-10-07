@@ -248,6 +248,18 @@ const VirtualKey_Enum = {
 	OEMClear: 0xFE,
 };
 
+/**
+ * USB HID Keyboard scan codes as per USB spec 1.11
+ * plus some additional codes
+ * 
+ * Created by MightyPork, 2016
+ * Edited by BigBrainAFK, 2019
+ * Public domain
+ * 
+ * Adapted from:
+ * https://source.android.com/devices/input/keyboard-devices.html
+ */
+
 const ScanCodes_Enum = {
 	None: 0x00, // No key pressed
 	Err_Ovf: 0x01, //  Keyboard Error Roll Over - used for all slots if too many keys are pressed ("Phantom key")
