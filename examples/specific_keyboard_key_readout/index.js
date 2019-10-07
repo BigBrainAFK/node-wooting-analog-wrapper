@@ -1,13 +1,14 @@
 const {
-	wooting_analog,
-	KeycodeType,
+	WootingWrapper,
 	DeviceEventType,
-	VirtualKey,
+	ScanCodes_Enum
 } = require('wooting-analog-sdk');
 
+const WootingClient = new WootingWrapper();
+
 // Initilizing the SDK and Wrapper
-wooting_analog.initialise();
-console.log(`Wooting Analog SDK initlized?: ${wooting_analog.is_initialised()}`);
+WootingClient.initialise();
+console.log(`Wooting Analog SDK initlized?: ${WootingClient.is_initialised()}`);
 
 // Creating a callback function with 2 arguments
 const callback = (eventType, deviceInfo) => {
@@ -19,12 +20,12 @@ const callback = (eventType, deviceInfo) => {
 
 	if (eventType === DeviceEventType.Connected) {
 		// Read the analog value for the 'Q' key as long as the program runs
-		console.log(wooting_analog.read_analog_device(0x14, deviceInfo.device_id));
+		console.log(WootingClient.read_analog_device(ScanCodes_Enum.Q, deviceInfo.device_id));
 	}
 };
 
 // Handing the callback to the SDK
-wooting_analog.set_device_event_cb(callback);
+WootingClient.set_device_event_cb(callback);
 
 // Keeping the script open till we close it via Ctrl+C
 process.stdin.resume();

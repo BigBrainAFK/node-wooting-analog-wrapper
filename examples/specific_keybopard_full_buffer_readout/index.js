@@ -1,17 +1,14 @@
 const {
-	wooting_analog,
-	KeycodeType,
+	WootingWrapper,
 	DeviceEventType,
 	types,
-	VirtualKey,
 } = require('wooting-analog-sdk');
-const ref = require('ref');
 
-process.cwd('..');
+const WootingClient = new WootingWrapper();
 
 // Initilizing the SDK and Wrapper
-wooting_analog.initialise();
-console.log(`Wooting Analog SDK initlized?: ${wooting_analog.is_initialised()}`);
+WootingClient.initialise();
+console.log(`Wooting Analog SDK initlized?: ${WootingClient.is_initialised()}`);
 
 // Creating a callback function with 2 arguments
 const callback = (eventType, deviceInfo) => {
@@ -30,7 +27,7 @@ const callback = (eventType, deviceInfo) => {
 		const length = keyCode.length > analog_Buf.length ? analog_Buf.length : keyCode.length;
 
 		// Fill buffer while program runs
-		wooting_analog.read_full_buffer(keyCode, analog_Buf, length);
+		WootingClient.read_full_buffer(keyCode, analog_Buf, length);
 			
 		// Print the values of keyCode and Analog
 		console.log(`keyCode value: 0x${keyCode.readUInt16LE().toString(16)}\nAnalog value: ${analog_Buf.readFloatLE()}`);
@@ -38,7 +35,7 @@ const callback = (eventType, deviceInfo) => {
 };
 
 // Handing the callback to the SDK
-wooting_analog.set_device_event_cb(callback);
+WootingClient.set_device_event_cb(callback);
 
 // Keeping the script open till we close it via Ctrl+C
 process.stdin.resume();
