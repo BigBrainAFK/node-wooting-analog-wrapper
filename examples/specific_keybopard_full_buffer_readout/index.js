@@ -20,17 +20,21 @@ const callback = (eventType, deviceInfo) => {
 
 	if (eventType === DeviceEventType.Connected) {
 		// Setup the buffers and variables we need and get the length
-		const keyCode = Buffer.alloc(10000000);
-		keyCode.type = types.ushort_Ptr;
-		const analog_Buf = Buffer.alloc(10000000);
-		analog_Buf.type = types.float_Ptr;
-		const length = keyCode.length > analog_Buf.length ? analog_Buf.length : keyCode.length;
-
-		// Fill buffer while program runs
-		WootingClient.read_full_buffer(keyCode, analog_Buf, length);
-			
-		// Print the values of keyCode and Analog
-		console.log(`keyCode value: 0x${keyCode.readUInt16LE().toString(16)}\nAnalog value: ${analog_Buf.readFloatLE()}`);
+		const keyCode_Buf = Buffer.alloc(1e2);
+		keyCode_Buf.type = types.ushortArray_Ptr;
+		const analog_Buf = Buffer.alloc(1e2);
+		analog_Buf.type = types.floatArray_Ptr;
+		const length = keyCode_Buf.length > analog_Buf.length ? analog_Buf.length : keyCode_Buf.length;
+		
+		// Fill buffer
+		WootingClient.read_full_buffer(keyCode_Buf, analog_Buf, length);
+		
+		const keys = [...keyCode_Buf].map(x => `0x${x.toString(16)}`);
+		const analogValues = [...analog_Buf];
+		
+		// Print the values of keys and analogValues
+		console.log(`keyCodes pressed: ${keys}`);
+		console.log(`Analog Values of keys: ${analogValues}`);
 	}
 };
 
