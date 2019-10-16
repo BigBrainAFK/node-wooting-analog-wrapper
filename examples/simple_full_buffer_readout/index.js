@@ -1,10 +1,10 @@
 const {
-	wooting_analog,
+	WootingWrapper,
 	types,
 } = require('wooting-analog-sdk');
 const ref = require('ref');
 
-const WootingClient = new wooting_analog();
+const WootingClient = new WootingWrapper();
 
 // Initilizing the SDK and Wrapper
 WootingClient.initialise();
@@ -25,11 +25,11 @@ console.log(device_info.toJSON());
 console.log("End of device info");
 
 // Setup the buffers and variables we need and get the length
-const keyCode_Buf = Buffer.alloc(10000000);
-keyCode.type = types.ushort_Ptr;
-const analog_Buf = Buffer.alloc(10000000);
+const keyCode_Buf = Buffer.alloc(1e6);
+keyCode_Buf.type = types.ushort_Ptr;
+const analog_Buf = Buffer.alloc(1e6);
 analog_Buf.type = types.float_Ptr;
-const length = keyCode.length > analog_Buf.length ? analog_Buf.length : keyCode.length;
+const length = keyCode_Buf.length > analog_Buf.length ? analog_Buf.length : keyCode_Buf.length;
 
 for (let i = 0; i < length; i++) {
 	// Fill buffer
