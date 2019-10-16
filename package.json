@@ -9,6 +9,7 @@
   "private": false,
   "dependencies": {
     "ffi": "lxe/node-ffi#node-12",
+    "ref-array": "lxe/ref-array#node-12",
     "ref-struct": "BigBrainAFK/ref-struct"
   }
 }

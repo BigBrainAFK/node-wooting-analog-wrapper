@@ -1,6 +1,7 @@
 const ffi = require('ffi');
 const ref = require('ref');
 const StructType = require('ref-struct');
+const ArrayType = require('ref-array');
 const {
 	getError,
 	WootingAnalogResult_Enum,
@@ -23,8 +24,12 @@ if (platform === 'win32'){
 
 const ushort = ref.types.ushort;
 const ushort_Ptr = ref.refType(ushort);
+const ushortArray = ArrayType(ushort);
+const ushortArray_Ptr = ref.refType(ushortArray);
 const float = ref.types.float;
 const float_Ptr = ref.refType(float);
+const floatArray = ArrayType(float);
+const floatArray_Ptr = ref.refType(floatArray);
 
 const WootingAnalogResult = ref.types.int;
 const WootingAnalog_DeviceID = ref.types.uint64;
@@ -78,16 +83,16 @@ const wooting_analog_wrapper = ffi.Library(__dirname + woot_loc, {
 	'wooting_analog_read_full_buffer': [
 		ref.types.int,
 		[
-			ushort_Ptr,
-			float_Ptr,
+			ushortArray_Ptr,
+			floatArray_Ptr,
 			ref.types.uint,
 		]
 	],
 	'wooting_analog_read_full_buffer_device': [
 		ref.types.int,
 		[
-			ushort_Ptr,
-			float_Ptr,
+			ushortArray_Ptr,
+			floatArray_Ptr,
 			ref.types.uint,
 			WootingAnalog_DeviceID,
 		]
@@ -208,7 +213,7 @@ class WootingWrapper {
 	read_full_buffer(code_buffer, analog_buffer, length) {
 		const result = wooting_analog_wrapper.wooting_analog_read_full_buffer(code_buffer, analog_buffer, length);
 
-		if (result < 0 || result > 1) throw Error(getError(WootingAnalogResult_Enum, result));
+		if (result < 0) throw Error(getError(WootingAnalogResult_Enum, result));
 
 		return result;
 	}
@@ -226,7 +231,7 @@ class WootingWrapper {
 	read_full_buffer_device(code_buffer, analog_buffer, length, device_id) {
 		const result = wooting_analog_wrapper.wooting_analog_read_full_buffer_device(code_buffer, analog_buffer, length, device_id);
 
-		if (result < 0 || result > 1) throw Error(getError(WootingAnalogResult_Enum, result));
+		if (result < 0) throw Error(getError(WootingAnalogResult_Enum, result));
 
 		return result;
 	}
@@ -294,8 +299,12 @@ module.exports = {
 		WootingAnalog_KeycodeType,
 		ushort,
 		ushort_Ptr,
+		ushortArray,
+		ushortArray_Ptr,
 		float,
 		float_Ptr,
+		floatArray,
+		floatArray_Ptr,
 	},
 	VirtualKey: VirtualKey_Enum,
 	ScanCodes_Enum,
