@@ -24,17 +24,21 @@ console.log("Beginning of device info");
 console.log(device_info.toJSON());
 console.log("End of device info");
 
-// Setup the buffers and variables we need and get the length
-const keyCode_Buf = Buffer.alloc(1e6);
-keyCode_Buf.type = types.ushort_Ptr;
-const analog_Buf = Buffer.alloc(1e6);
-analog_Buf.type = types.float_Ptr;
-const length = keyCode_Buf.length > analog_Buf.length ? analog_Buf.length : keyCode_Buf.length;
+while (true) {
+	// Setup the buffers and variables we need and get the length
+	const keyCode_Buf = Buffer.alloc(1e2);
+	keyCode_Buf.type = types.ushortArray_Ptr;
+	const analog_Buf = Buffer.alloc(1e2);
+	analog_Buf.type = types.floatArray_Ptr;
+	const length = keyCode_Buf.length > analog_Buf.length ? analog_Buf.length : keyCode_Buf.length;
 
-for (let i = 0; i < length; i++) {
 	// Fill buffer
 	WootingClient.read_full_buffer(keyCode_Buf, analog_Buf, length);
-	
-	// Print the values of keyCode and Analog
-	console.log(`keyCode value: 0x${keyCode_Buf.readUInt16LE().toString(16)}\nAnalog value: ${analog_Buf.readFloatLE()}`);
+
+	const keys = [...keyCode_Buf].map(x => `0x${x.toString(16)}`);
+	const analogValues = [...analog_Buf];
+
+	// Print the values of keys and analogValues
+	console.log(`keyCodes pressed: ${keys}`);
+	console.log(`Analog Values of keys: ${analogValues}`);
 }

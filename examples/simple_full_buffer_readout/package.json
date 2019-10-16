@@ -6,6 +6,7 @@
   "author": "BigBrainAFK",
   "license": "GPL-3.0-only",
   "dependencies": {
+    "ref-array": "lxe/ref-array#node-12",
     "wooting-analog-sdk": "BigBrainAFK/node-wooting-analog-wrapper"
   }
 }
